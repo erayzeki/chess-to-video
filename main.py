@@ -12,4 +12,3 @@ game = getBoards(PGN_NAME)
 BOARD, MAP = generateImageMap(BOARD_SET_NAME, PIECE_SET_NAME)
 GAME_IMAGES = generateGameImages(game, BOARD, MAP)
 generateVideo(GAME_IMAGES, PGN_NAME.split(".")[0], TIME_PER_MOVE)
-
