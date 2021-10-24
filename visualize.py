@@ -77,8 +77,8 @@ def generateGameImages(game, BOARD, MAP):
     return GAME_IMAGES
 
 
-def generateVideo(gameImages, videoName):
-    out = cv2.VideoWriter(videoName + ".avi", cv2.VideoWriter_fourcc(*'DIVX'), 4, (1024, 1024))
+def generateVideo(gameImages, videoName, movePerSecond):
+    out = cv2.VideoWriter(videoName + ".avi", cv2.VideoWriter_fourcc(*'DIVX'), movePerSecond, (1024, 1024))
     for board in gameImages:
         out.write(board)
     out.release()
