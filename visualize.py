@@ -1,6 +1,7 @@
 import cv2
 import os
 from games import getSquareColor
+import sys
 
 def generateImageMap(boardSet, pieceSet):
     dir = os.path.dirname(__file__)
@@ -73,7 +74,8 @@ def generateGameImages(game, BOARD, MAP):
     for boardNumber in range(len(game) - 1):
         currentBoardImage = getNewPositionImage(game[boardNumber], currentBoardImage, game[boardNumber + 1], MAP)
         GAME_IMAGES.append(currentBoardImage)
-        print("Move: " + str(boardNumber + 1))
+        sys.stdout.write("\rMove: " + str(boardNumber + 1) + "/" + str(len(game)-1))
+        sys.stdout.flush()
     return GAME_IMAGES
 
 

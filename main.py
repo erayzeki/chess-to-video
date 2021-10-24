@@ -7,8 +7,6 @@ BOARD_SET_NAME = sys.argv[2]
 PIECE_SET_NAME = sys.argv[3]
 TIME_PER_MOVE = int(sys.argv[4])
 
-print(len(sys.argv))
-
 game = getBoards(PGN_NAME)
 
 BOARD, MAP = generateImageMap(BOARD_SET_NAME, PIECE_SET_NAME)
