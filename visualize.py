@@ -64,6 +64,19 @@ def getNewPositionImage(currentBoard, currentBoardImage, newBoard, imageMAP):
                 newBoardImage = pastePiece(newBoardImage, imageMAP[newBoard[square]], square, True)
     return newBoardImage
 
+
+def generateGameImages(game, BOARD, MAP):
+    EMPTY_BOARD = ["."] * 64
+    GAME_IMAGES = []
+    currentBoardImage = getNewPositionImage(EMPTY_BOARD, BOARD, game[0], MAP)
+    GAME_IMAGES.append(currentBoardImage)
+    for boardNumber in range(len(game) - 1):
+        currentBoardImage = getNewPositionImage(game[boardNumber], currentBoardImage, game[boardNumber + 1], MAP)
+        GAME_IMAGES.append(currentBoardImage)
+        print("Move: " + str(boardNumber + 1))
+    return GAME_IMAGES
+
+
 def generateVideo(gameImages, videoName):
     out = cv2.VideoWriter(videoName + ".avi", cv2.VideoWriter_fourcc(*'DIVX'), 4, (1024, 1024))
     for board in gameImages:
