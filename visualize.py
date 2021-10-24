@@ -59,12 +59,14 @@ def getNewPositionImage(currentBoard, currentBoardImage, newBoard, imageMAP):
     newBoardImage = currentBoardImage.copy()
     for square in range(64):
         if currentBoard[square] != newBoard[square]:
+            newBoardImage = pastePiece(newBoardImage, imageMAP[getSquareColor(square)], square, False)
             if newBoard[square] != ".":
                 newBoardImage = pastePiece(newBoardImage, imageMAP[newBoard[square]], square, True)
-            else:
-                newBoardImage = pastePiece(newBoardImage, imageMAP[getSquareColor(square)], square, False)
     return newBoardImage
 
-def generateVideo(gameImages):
-
+def generateVideo(gameImages, videoName):
+    out = cv2.VideoWriter(videoName + ".avi", cv2.VideoWriter_fourcc(*'DIVX'), 4, (1024, 1024))
+    for board in gameImages:
+        out.write(board)
+    out.release()
 

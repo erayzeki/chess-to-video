@@ -19,7 +19,7 @@ for boardNumber in range(len(game)-1):
     GAME_IMAGES.append(currentBoardImage)
     print("Move: " + str(boardNumber+1))
 
-
+generateVideo(GAME_IMAGES, "deneme")
 
 
 
