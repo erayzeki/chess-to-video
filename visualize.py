@@ -55,10 +55,7 @@ def pastePiece(board, piece, index, isPiece):
                     new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
         return new_board
 
-    for row in range(128):
-        for col in range(128):
-            new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
-
+    new_board[rowIndex*128:rowIndex*128+128, colIndex*128:colIndex*128+128] = piece
     return new_board
 
 def getNewPositionImage(currentBoard, currentBoardImage, newBoard, imageMAP):
