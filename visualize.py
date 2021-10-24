@@ -46,17 +46,18 @@ def pastePiece(board, piece, index, isPiece):
     rowIndex = index // 8
     colIndex = index % 8
 
-    new_board = board.copy()
+    new_board = board
 
     if isPiece:
         for row in range(128):
             for col in range(128):
-                if piece[row][col][3] != 0:
+                if piece[row][col][3]:
                     new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
-    else:
-        for row in range(128):
-            for col in range(128):
-                new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
+        return new_board
+
+    for row in range(128):
+        for col in range(128):
+            new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
 
     return new_board
 
