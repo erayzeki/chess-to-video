@@ -2,7 +2,7 @@ import cv2
 import chess
 import chess.pgn
 from games import getBoards
-from visualize import generateImageMap, getNewPositionImage
+from visualize import generateImageMap, getNewPositionImage, generateVideo
 
 PGN_NAME = "karpov_kasparov_1984.pgn"
 
@@ -17,7 +17,9 @@ GAME_IMAGES.append(currentBoardImage)
 for boardNumber in range(len(game)-1):
     currentBoardImage = getNewPositionImage(game[boardNumber], currentBoardImage, game[boardNumber+1], MAP)
     GAME_IMAGES.append(currentBoardImage)
-    print(boardNumber+1)
+    print("Move: " + str(boardNumber+1))
+
+
 
 
 
