@@ -1,12 +1,28 @@
 import cv2
 import chess
 import chess.pgn
-from games import get_boards
+from games import getBoards
+from visualize import generateImageMap, getNewPositionImage
 
 PGN_NAME = "karpov_kasparov_1984.pgn"
 
-game = get_boards(PGN_NAME)
+game = getBoards(PGN_NAME)
 
-print(game)
+BOARD, MAP = generateImageMap("newspaper", "pixel")
+EMPTY_BOARD = ["."]*64
+GAME_IMAGES = []
+
+currentBoardImage = getNewPositionImage(EMPTY_BOARD, BOARD, game[0], MAP)
+GAME_IMAGES.append(currentBoardImage)
+for boardNumber in range(len(game)-1):
+    currentBoardImage = getNewPositionImage(game[boardNumber], currentBoardImage, game[boardNumber+1], MAP)
+    GAME_IMAGES.append(currentBoardImage)
+    print(boardNumber+1)
+
+
+
+
+
+
 
 
