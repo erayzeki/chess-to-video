@@ -48,15 +48,17 @@ def pastePiece(board, piece, index, isPiece):
     colIndex = index % 8
 
     new_board = board
+    y1, y2 = rowIndex*128, rowIndex*128+128
+    x1, x2 = colIndex*128, colIndex*128+128
 
     if isPiece:
-        for row in range(128):
-            for col in range(128):
-                if piece[row][col][3]:
-                    new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
+        alpha_s = piece[:, :, 3] / 255.0
+        alpha_l = 1.0 - alpha_s
+        for channel in range(3):
+            new_board[y1:y2, x1:x2, channel] = (alpha_s * piece[:, :, channel] + alpha_l*new_board[y1:y2, x1:x2, channel])
         return new_board
 
-    new_board[rowIndex*128:rowIndex*128+128, colIndex*128:colIndex*128+128] = piece
+    new_board[y1:y2, x1:x2] = piece
     return new_board
 
 def getNewPositionImage(currentBoard, currentBoardImage, newBoard, imageMAP):
