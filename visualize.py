@@ -10,8 +10,9 @@ def generateImageMap(boardSet, pieceSet):
 
     piece2image = {}
 
-    piece2image["white"] = board_image[0:128, 0:128]
-    piece2image["black"] = board_image[0:128, 128:256]
+    for row in range(8):
+        for col in range(8):
+            piece2image[row*8+col] = board_image[row*128:row*128+128, col*128:col*128+128]
 
     piece_dir = os.path.join(dir, "sprites", "pieces", pieceSet)
     piece2image["b"] = cv2.resize(cv2.imread(os.path.join(piece_dir, "bB.png"), cv2.IMREAD_UNCHANGED),
@@ -55,17 +56,14 @@ def pastePiece(board, piece, index, isPiece):
                     new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
         return new_board
 
-    for row in range(128):
-        for col in range(128):
-            new_board[rowIndex * 128 + row][colIndex * 128 + col] = piece[row][col][:3]
-
+    new_board[rowIndex*128:rowIndex*128+128, colIndex*128:colIndex*128+128] = piece
     return new_board
 
 def getNewPositionImage(currentBoard, currentBoardImage, newBoard, imageMAP):
     newBoardImage = currentBoardImage.copy()
     for square in range(64):
         if currentBoard[square] != newBoard[square]:
-            newBoardImage = pastePiece(newBoardImage, imageMAP[getSquareColor(square)], square, False)
+            newBoardImage = pastePiece(newBoardImage, imageMAP[square], square, False)
             if newBoard[square] != ".":
                 newBoardImage = pastePiece(newBoardImage, imageMAP[newBoard[square]], square, True)
     return newBoardImage
