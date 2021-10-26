@@ -2,7 +2,11 @@ import chess
 import chess.pgn
 
 def readPGN(fileName):
-    pgn = open(fileName, encoding="utf-8")
+    try:
+        pgn = open(fileName, encoding="utf-8")
+    except:
+        print("PGN not found")
+        exit()
     game = chess.pgn.read_game(pgn)
     pgn.close()
     return game

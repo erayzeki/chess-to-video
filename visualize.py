@@ -6,7 +6,6 @@ def generateImageMap(boardSet, pieceSet):
     dir = os.path.dirname(__file__)
     board_image = cv2.imread(os.path.join(dir, "sprites", "boards", boardSet + ".png"))
 
-
     piece2image = {}
 
     for row in range(8):
@@ -78,8 +77,6 @@ def generateGameImages(game, BOARD, MAP):
     for boardNumber in range(len(game) - 1):
         currentBoardImage = getNewPositionImage(game[boardNumber], currentBoardImage, game[boardNumber + 1], MAP)
         GAME_IMAGES.append(currentBoardImage)
-        sys.stdout.write("\rMove: " + str(boardNumber + 1) + "/" + str(len(game)-1))
-        sys.stdout.flush()
     return GAME_IMAGES
 
 
