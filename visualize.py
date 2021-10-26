@@ -1,6 +1,5 @@
 import cv2
 import os
-from games import getSquareColor
 import sys
 
 def generateImageMap(boardSet, pieceSet):

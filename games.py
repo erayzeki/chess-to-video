@@ -17,10 +17,3 @@ def getBoards(fileName):
         current_board.push(move)
         boards.append(str(current_board.copy()).split())
     return boards
-
-def getSquareColor(index):
-    row = index//8
-    col = index%8
-    if (row+col)%2 == 0:
-        return "white"
-    return "black"
