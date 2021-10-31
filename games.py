@@ -7,17 +7,29 @@ def readPGN(fileName):
     except:
         print("PGN not found")
         exit()
+
+    games = []
     game = chess.pgn.read_game(pgn)
+    while game:
+        games.append(game)
+        game = chess.pgn.read_game(pgn)
     pgn.close()
-    return game
+    return games
 
 def getBoards(fileName):
-    game = readPGN(fileName)
-    boards = []
-    current_board = chess.Board()
+    games = readPGN(fileName)
+    isMultiple = True
+    if len(games) == 1:
+        isMultiple = False
 
-    boards.append(str(current_board.copy()).split())
-    for move in game.mainline_moves():
-        current_board.push(move)
+    game_boards = []
+
+    for game in games:
+        boards = []
+        current_board = chess.Board()
         boards.append(str(current_board.copy()).split())
-    return boards
+        for move in game.mainline_moves():
+            current_board.push(move)
+            boards.append(str(current_board.copy()).split())
+        game_boards.append(boards)
+    return game_boards, isMultiple
