@@ -5,7 +5,7 @@ from visualize import generateImageMap, generateVideo, generateGameImages
 PGN_NAME = input("Enter the name of the PGN file: ")
 while not PGN_NAME:
     PGN_NAME = input("Enter the name of the PGN file: ")
-game = getBoards(PGN_NAME)
+games, isMultiple = getBoards(PGN_NAME)
 
 BOARD_SET_NAME = input("Enter board style (Default is wood3): ")
 if not BOARD_SET_NAME:
@@ -21,7 +21,18 @@ else:
 
 print("Processing..")
 BOARD, MAP = generateImageMap(BOARD_SET_NAME, PIECE_SET_NAME)
-GAME_IMAGES = generateGameImages(game, BOARD, MAP)
+if not isMultiple:
 
-generateVideo(GAME_IMAGES, PGN_NAME.split(".")[0], TIME_PER_MOVE)
-print(PGN_NAME.split(".")[0] + ".avi created successfully!")
+    GAME_IMAGES = generateGameImages(games[0], BOARD, MAP)
+
+    generateVideo(GAME_IMAGES, PGN_NAME.split(".")[0], TIME_PER_MOVE)
+    print(PGN_NAME.split(".")[0] + ".avi created successfully!")
+else:
+    game_number = 1
+    for game in games:
+        GAME_IMAGES = generateGameImages(game, BOARD, MAP)
+
+        generateVideo(GAME_IMAGES, str(game_number).zfill(5), TIME_PER_MOVE)
+        print(str(game_number).zfill(5) + ".avi created successfully!")
+        game_number += 1
+
